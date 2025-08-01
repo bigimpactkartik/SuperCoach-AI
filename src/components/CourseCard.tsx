@@ -39,16 +39,16 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
   };
 
   return (
-    <div className="glass rounded-2xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group relative overflow-hidden">
+    <div className="relative p-6 overflow-hidden transition-all duration-300 transform glass rounded-2xl hover:shadow-xl hover:-translate-y-2 group">
       {/* Background Pattern */}
       <div className={`absolute inset-0 bg-gradient-to-br ${getStatusColor(course.status)} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
       
       <div className="relative z-10">
         {/* Header */}
-        <div className="flex justify-between items-start mb-4">
+        <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+              <h3 className="text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
                 {course.title}
               </h3>
               <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r ${getStatusColor(course.status)} shadow-lg`}>
@@ -56,13 +56,13 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
                 {getStatusText(course.status)}
               </span>
               {isLocked && course.status === 'live' && (
-                <div className="flex items-center gap-1 px-2 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+                <div className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-orange-700 bg-orange-100 rounded-full">
                   <Lock size={12} />
                   Protected
                 </div>
               )}
             </div>
-            <p className="text-gray-600 text-sm mb-3 line-clamp-2">{course.description}</p>
+            <p className="mb-3 text-sm text-gray-600 line-clamp-2">{course.description}</p>
             <div className="flex items-center gap-4 text-xs text-gray-500">
               <div className="flex items-center gap-1">
                 <GitBranch size={12} />
@@ -70,25 +70,25 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
               </div>
               <span>•</span>
               <span>Updated {new Date(course.updatedAt).toLocaleDateString()}</span>
-              {course.baseId && (
+              {/* {course.baseId && (
+                 <>
+                   <span>•</span>
+                   <span>Base ID: {course.baseId}</span>
+                </>
+              )} */}
+              {/* {course.isCurrentVersion && (
                 <>
                   <span>•</span>
-                  <span>Base ID: {course.baseId}</span>
+                  <span className="font-medium text-emerald-600">Current</span>
                 </>
-              )}
-              {course.isCurrentVersion && (
-                <>
-                  <span>•</span>
-                  <span className="text-emerald-600 font-medium">Current</span>
-                </>
-              )}
+              )} */}
             </div>
           </div>
         </div>
         
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="text-center p-3 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
+          <div className="p-3 text-center bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
             <div className="flex items-center justify-center gap-2 mb-1">
               <BookOpen size={14} className="text-blue-600" />
               <span className="text-lg font-bold text-blue-600">{course.modules.length}</span>
@@ -96,7 +96,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
             <p className="text-xs font-medium text-gray-600">Modules</p>
           </div>
           
-          <div className="text-center p-3 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl">
+          <div className="p-3 text-center bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl">
             <div className="flex items-center justify-center gap-2 mb-1">
               <Users size={14} className="text-emerald-600" />
               <span className="text-lg font-bold text-emerald-600">{course.enrolledStudents}</span>
@@ -104,7 +104,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
             <p className="text-xs font-medium text-gray-600">Students</p>
           </div>
           
-          <div className="text-center p-3 bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl">
+          <div className="p-3 text-center bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl">
             <div className="flex items-center justify-center gap-2 mb-1">
               <Clock size={14} className="text-purple-600" />
               <span className="text-lg font-bold text-purple-600">{course.completionRate}%</span>
@@ -127,7 +127,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
             {isLocked && course.status === 'live' ? (
               <>
                 <Lock size={14} />
-                Locked
+                {/*Locked*/}
+                View
               </>
             ) : (
               <>
@@ -138,17 +139,17 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
           </button>
           
           <button 
-            onClick={onCreateVersion}
-            className="px-4 py-2 border-2 border-gray-200 hover:border-purple-300 text-gray-700 hover:text-purple-600 rounded-xl hover:bg-purple-50 transition-all duration-200 text-sm font-semibold transform hover:scale-105 flex items-center gap-2"
-          >
-            <Copy size={14} />
-            Version
-          </button>
+  className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-400 border-2 border-gray-200 opacity-50 cursor-not-allowed rounded-xl bg-gray-50"
+  disabled
+>
+  <Copy size={14} />
+  Version
+</button>
           
           {course.status === 'draft' && (
             <button 
               onClick={onMakeLive}
-              className="px-4 py-2 border-2 border-emerald-200 hover:border-emerald-300 text-emerald-700 hover:text-emerald-600 rounded-xl hover:bg-emerald-50 transition-all duration-200 text-sm font-semibold transform hover:scale-105 flex items-center gap-2"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-semibold transition-all duration-200 transform border-2 border-emerald-200 hover:border-emerald-300 text-emerald-700 hover:text-emerald-600 rounded-xl hover:bg-emerald-50 hover:scale-105"
             >
               <Play size={14} />
               Go Live
@@ -158,7 +159,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
 
         {/* Version Info for Live Courses */}
         {course.status === 'live' && course.enrolledStudents > 0 && (
-          <div className="mt-4 p-3 bg-orange-50 border border-orange-200 rounded-xl">
+          <div className="p-3 mt-4 border border-orange-200 bg-orange-50 rounded-xl">
             <div className="flex items-center gap-2 text-orange-700">
               <AlertTriangle size={14} />
               <span className="text-xs font-medium">
@@ -171,7 +172,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onEdit, onCreateVersion
 
         {/* Version History Indicator */}
         {course.baseId && !course.isCurrentVersion && (
-          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-xl">
+          <div className="p-3 mt-4 border border-blue-200 bg-blue-50 rounded-xl">
             <div className="flex items-center gap-2 text-blue-700">
               <GitBranch size={14} />
               <span className="text-xs font-medium">
