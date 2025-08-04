@@ -83,7 +83,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthenticated }) => {
   const [toast, setToast] = useState<{message: string; type: 'success' | 'error'} | null>(null);
 
   // API configuration
-  const API_BASE_URL = 'http://localhost:8000';
+  const API_BASE_URL = 'http://localhost:3100';
 
   const validatePhone = (phone: string) => {
     const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
